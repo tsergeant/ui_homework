@@ -3,19 +3,17 @@ import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { login } from '../api/api';
-import { useAuth } from '../context/AuthContext';
+import { register } from '../api/api';
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+type RegisterScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Register'>;
 
-export default function Login() {
-  const navigation = useNavigation<LoginScreenNavigationProp>();
-  const { login: saveToken } = useAuth();
+export default function Register() {
+  const navigation = useNavigation<RegisterScreenNavigationProp>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
@@ -23,12 +21,11 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const response = await login({ email, password });
-      await saveToken(response.access_token);
-      Alert.alert('Success', 'Login successful!');
-      navigation.navigate('Home');
+      await register({ email, password });
+      Alert.alert('Success', 'Registration successful! Please login.');
+      navigation.navigate('Login');
     } catch (error) {
-      Alert.alert('Error', error instanceof Error ? error.message : 'Login failed. Please check your credentials.');
+      Alert.alert('Error', error instanceof Error ? error.message : 'Registration failed');
     } finally {
       setLoading(false);
     }
@@ -36,7 +33,7 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Register</Text>
       <View style={styles.form}>
         <TextInput
           style={styles.input}
@@ -55,8 +52,8 @@ export default function Login() {
         />
         <View style={styles.buttonContainer}>
           <Button
-            title={loading ? 'Logging in...' : 'Login'}
-            onPress={handleLogin}
+            title={loading ? 'Registering...' : 'Register'}
+            onPress={handleRegister}
             disabled={loading}
           />
         </View>
