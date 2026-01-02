@@ -1,3 +1,23 @@
+/**
+ * Login.tsx - User authentication screen
+ * 
+ * Handles user login with email and password.
+ * 
+ * Current flow:
+ * 1. User enters email/password
+ * 2. On submit, calls API login endpoint
+ * 3. If successful, saves token using AuthContext
+ * 4. Navigates back to Home screen
+ * 
+ * UX improvements to consider:
+ * - Email format validation before submission
+ * - Show/hide password toggle
+ * - Inline error messages (instead of Alert dialogs)
+ * - "Forgot password" link
+ * - Keyboard dismissal on submit
+ * - Loading indicator during API call
+ * - Auto-focus next field
+ */
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -10,7 +30,7 @@ type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, '
 
 export default function Login() {
   const navigation = useNavigation<LoginScreenNavigationProp>();
-  const { login: saveToken } = useAuth();
+  const { login: saveToken } = useAuth();  // Renamed to avoid conflict with imported login function
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);

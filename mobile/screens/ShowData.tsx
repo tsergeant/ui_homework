@@ -1,3 +1,30 @@
+/**
+ * ShowData.tsx - Screen displaying all saved data entries
+ * 
+ * Fetches and displays all data entries saved by the current user.
+ * 
+ * Current implementation:
+ * - Shows simple list of entries
+ * - Displays content and timestamp
+ * - Handles empty state
+ * 
+ * Data structure from API:
+ * Each item has: { id, user_id, json_data, timestamp }
+ * - json_data contains whatever structure was saved (currently { content: "..." })
+ * - timestamp is ISO format date string
+ * 
+ * UX improvements to consider:
+ * - Pull-to-refresh functionality
+ * - Filtering/sorting options
+ * - Search functionality
+ * - Pagination (API supports skip/limit)
+ * - Date grouping (group by day/week)
+ * - Card-based layout instead of list
+ * - Swipe actions (edit/delete)
+ * - Better empty state (illustration, call-to-action)
+ * - Loading skeleton instead of spinner
+ * - Error retry button
+ */
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +41,7 @@ export default function ShowData() {
   const [data, setData] = useState<SavedData[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Load data when screen first appears
   useEffect(() => {
     loadData();
   }, []);
@@ -53,6 +81,11 @@ export default function ShowData() {
         ) : (
           data.map((item, index) => (
             <View key={item.id || index} style={styles.dataItem}>
+              {/* 
+                Display content if it exists, otherwise show the full JSON structure
+                As you add different data types, you'll want to render them differently
+                (e.g., workout data might show distance + duration, nutrition might show calories)
+              */}
               <Text style={styles.dataContent}>
                 {item.json_data?.content || JSON.stringify(item.json_data)}
               </Text>

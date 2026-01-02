@@ -1,3 +1,24 @@
+/**
+ * Register.tsx - New user registration screen
+ * 
+ * Allows users to create a new account.
+ * 
+ * Current validation:
+ * - Checks that fields are not empty
+ * 
+ * API requirements:
+ * - Password must be at least 8 characters
+ * - Email must be valid format
+ * 
+ * UX improvements to consider:
+ * - Show password requirements (min 8 characters)
+ * - Password strength indicator
+ * - Email format validation
+ * - Confirm password field
+ * - Inline validation feedback
+ * - Success message before navigating
+ * - Keyboard dismissal
+ */
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';

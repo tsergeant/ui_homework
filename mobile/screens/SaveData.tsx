@@ -1,3 +1,32 @@
+/**
+ * SaveData.tsx - Screen for saving user data
+ * 
+ * Currently implements a simple text input that saves data as:
+ *   { content: "user's text" }
+ * 
+ * The saveData API function accepts ANY JSON structure, so you can extend this to:
+ * - Structured forms (workout type, duration, distance, etc.)
+ * - Multiple input fields that create complex objects
+ * - Different data types (nutrition, mood, sleep, etc.)
+ * 
+ * Current JSON structure being saved:
+ *   json_data: { content: "..." }
+ * 
+ * Example of how to save structured data:
+ *   await saveData(token, { 
+ *     type: "workout", 
+ *     kind: "run", 
+ *     distance: 3.2 
+ *   });
+ * 
+ * UX improvements to consider:
+ * - Character count
+ * - Auto-save draft
+ * - Rich text formatting
+ * - Date/time picker for timestamp
+ * - Form validation
+ * - Success feedback (toast instead of alert)
+ */
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -28,6 +57,8 @@ export default function SaveData() {
 
     setLoading(true);
     try {
+      // Structure the data as an object before passing to saveData
+      // This is where you could change the structure for different data types
       await saveData(token, { content });
       Alert.alert('Success', 'Data saved successfully!');
       setContent('');

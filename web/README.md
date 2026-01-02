@@ -28,7 +28,7 @@ You are expected to:
 
 ---
 
-## 🧱 Tech Stack (Fixed)
+## Tech Stack (Fixed)
 
 This project uses:
 
@@ -111,6 +111,8 @@ Do **not** start adding features until this works.
 
 This project consumes a shared instructor-provided API.
 
+**API Documentation:** [https://fitnessapi.sergeantservices.com/docs](https://fitnessapi.sergeantservices.com/docs)
+
 All API calls should go through:
 
 src/api/client.ts
@@ -118,6 +120,31 @@ src/api/client.ts
 Do **not** scatter `fetch()` calls throughout your components.
 
 This keeps the project maintainable and consistent with the mobile app.
+
+### CORS Configuration
+
+**Important for Development:** The API server's CORS configuration must include your development origin (e.g., `http://localhost:5173`) in the `FITNESSAPI_CORS_ORIGINS` environment variable. 
+
+If you encounter "Failed to fetch" or CORS errors during development, the server administrator needs to update the CORS origins to include:
+- `http://localhost:5173` (or `http://localhost:*` for any port)
+- Your production domain when deployed
+
+**Note:** Mobile apps don't have CORS restrictions, which is why they work even when the web app doesn't.
+
+### API Endpoints
+
+The application uses the following API endpoints:
+
+- **Authentication:**
+  - `POST /register` - Register a new user
+  - `POST /login` - Login and receive authentication token
+  - `POST /logout` - Logout (invalidate session)
+
+- **Data Management:**
+  - `POST /data` - Save user data (requires authentication)
+  - `GET /data` - Retrieve all user data (requires authentication)
+
+All authenticated requests require a Bearer token in the Authorization header.
 
 ---
 

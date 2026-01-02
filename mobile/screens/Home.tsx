@@ -1,3 +1,16 @@
+/**
+ * Home.tsx - Main landing screen
+ * 
+ * This screen serves as the app's entry point and navigation hub.
+ * It conditionally shows different buttons based on authentication state:
+ * - Always visible: Register, Login
+ * - Only when authenticated: Logout, Save Data, Show Data
+ * 
+ * UX considerations for improvement:
+ * - Could show user's email when logged in
+ * - Button layout could be improved for mobile (consider card-based design)
+ * - Loading states during logout
+ */
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
